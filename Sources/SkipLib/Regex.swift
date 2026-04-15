@@ -59,7 +59,8 @@ public struct Regex : RegexComponent {
     }
 
     public func replace(_ string: String, with replacement: String) -> String {
-        return _regex.replace(string, replacement)
+        let safeReplacement = java.util.regex.Matcher.quoteReplacement(replacement)
+        return _regex.replace(string, safeReplacement)
     }
 
     public func replace(_ string: String, maxReplacements: Int = Int.max, with replacement: (Match) throws -> String) rethrows -> String {
